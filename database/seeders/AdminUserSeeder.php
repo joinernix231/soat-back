@@ -18,10 +18,10 @@ class AdminUserSeeder extends Seeder
     public function run()
     {
         User::firstOrCreate(
-            ['email' => 'admin@soatmundial.local'],
+            ['email' => 'admin@soatmundial.com'],
             [
                 'name' => 'Administrador SOAT',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('Soat@22'),
                 'email_verified_at' => now(),
             ]
         );
