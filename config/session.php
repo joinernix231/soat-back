@@ -168,7 +168,10 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    /*
+    | En Railway/HTTPS, si no defines la variable, activa cookies seguras cuando APP_URL es https.
+    */
+    'secure' => env('SESSION_SECURE_COOKIE', parse_url((string) env('APP_URL', ''), PHP_URL_SCHEME) === 'https'),
 
     /*
     |--------------------------------------------------------------------------

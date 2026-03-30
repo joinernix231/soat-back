@@ -10,9 +10,12 @@ class TrustProxies extends Middleware
     /**
      * The trusted proxies for this application.
      *
+     * Railway (y otros PaaS) terminan TLS delante del contenedor; hay que confiar
+     * el proxy para que Request::secure() y las URLs usen HTTPS correctamente.
+     *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.
