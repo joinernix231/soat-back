@@ -14,7 +14,7 @@
         $qrImg = $qrConfig && $qrConfig->qr_image_path ? asset($qrConfig->qr_image_path) : $qrImgGenerado;
         $mensajePago = $qrConfig && $qrConfig->mensaje_pago
             ? $qrConfig->mensaje_pago
-            : 'Escanea el código con tu app bancaria o billetera digital para completar el pago de tu SOAT.';
+            : 'Abre Nequi, Daviplata o tu app bancaria y busca la opción de pagar con QR. Si no puedes escanear en vivo, guarda una captura del código en tu galería y usa “Escanear desde galería” o “Escanear imagen”.';
         $nombreComercio = $qrConfig && $qrConfig->nombre_comercio ? $qrConfig->nombre_comercio : 'Seguros Mundial';
         $placaFmt = $vehiculo->placa ? strtoupper($vehiculo->placa) : '';
         $whatsConfirmUrl = 'https://api.whatsapp.com/send?phone=573219127738&text='
@@ -135,6 +135,17 @@
             margin-bottom: 0.85rem;
         }
         .steps strong { color: var(--sm-blue); }
+        .steps-list {
+            font-size: 0.78rem;
+            color: #4b6574;
+            line-height: 1.55;
+            margin: 0 auto 0.95rem;
+            padding-left: 1.25rem;
+            max-width: 28rem;
+            text-align: left;
+        }
+        .steps-list li { margin-bottom: 0.55rem; }
+        .steps-list strong { color: var(--sm-blue); }
         .btn-whats {
             display: block;
             width: 100%;
@@ -220,10 +231,12 @@
     <main class="wrap">
         <section class="card">
             <h1 class="title">Pago con Código QR</h1>
-            <p class="steps">
-                <strong>1.</strong> Escanea el código y paga desde tu app.<br>
-                <strong>2.</strong> Luego usa el botón verde para <strong>confirmar el pago</strong> por WhatsApp.
-            </p>
+            <p class="steps" style="margin-bottom:0.45rem;"><strong>Cómo pagar con este código</strong></p>
+            <ol class="steps-list">
+                <li><strong>Escanea el QR</strong> con la cámara de tu celular desde tu app (Nequi, Daviplata, banco, etc.). <strong>O</strong> haz una <strong>captura de pantalla</strong> del código, guárdala en tu galería y en la app elige <strong>“Escanear desde galería”</strong> o <strong>“Escanear imagen”</strong>.</li>
+                <li>Al pagar, <strong>ingresa el valor exacto</strong> que ves arriba (<strong>{{ $monto }}</strong>). Debe ser el mismo monto; revísalo antes de confirmar.</li>
+                <li>Cuando la app te confirme el envío, pulsa el <strong>botón verde</strong> para <strong>confirmar el pago por WhatsApp</strong> y agilizar la verificación.</li>
+            </ol>
             <div class="panel">
                 <div class="qr-box">
                     <img src="{{ $qrImg }}" alt="Código QR de pago">
@@ -239,7 +252,7 @@
                     <img src="{{ asset('PAGOS.jpeg') }}" alt="Apps habilitadas para pagar">
                 </div>
             </div>
-            <div class="notice"><strong>Importante:</strong> Verifica los datos de tu compra antes de pagar. Después de pagar, envía el mensaje por WhatsApp para agilizar la confirmación.</div>
+            <div class="notice"><strong>Importante:</strong> Comprueba que el monto y tus datos sean correctos antes de pagar. Si algo no cuadra, no envíes el dinero y contáctanos por WhatsApp.</div>
             <div class="brands">
                 <span>Mastercard</span><span>VISA</span><span>PayZen</span>
             </div>

@@ -15,7 +15,7 @@
         $qrImg = $qrConfig && $qrConfig->qr_image_path ? asset($qrConfig->qr_image_path) : $qrImgGenerado;
         $mensajePago = $qrConfig && $qrConfig->mensaje_pago
             ? $qrConfig->mensaje_pago
-            : 'Escanea el código con tu app bancaria o billetera digital para completar el pago de tu SOAT.';
+            : 'Abre Nequi, Daviplata o tu app bancaria y busca la opción de pagar con QR. Si no puedes escanear en vivo, guarda una captura del código en tu galería y usa “Escanear desde galería” o “Escanear imagen”.';
         $nombreComercio = $qrConfig && $qrConfig->nombre_comercio ? $qrConfig->nombre_comercio : 'Seguros Mundial';
         $whatsSupportUrl = 'https://api.whatsapp.com/send?phone=573219127738&text='
             . rawurlencode(
@@ -274,6 +274,17 @@
             margin-bottom: 0.85rem;
             line-height: 1.45;
         }
+        .steps-list {
+            font-size: 0.78rem;
+            color: var(--pt-muted);
+            line-height: 1.55;
+            margin: 0 auto 0.95rem;
+            padding-left: 1.25rem;
+            max-width: 28rem;
+            text-align: left;
+        }
+        .steps-list li { margin-bottom: 0.55rem; }
+        .steps-list strong { color: var(--pt-blue); }
         .panel-qr {
             border: 1px solid #edf2f5;
             border-radius: 10px;
@@ -538,10 +549,14 @@
         <div id="step-qr" class="step-panel" hidden>
             <h1 class="headline">Paga con código QR</h1>
             <div class="banner-tarjeta-off">
-                El pago con tarjeta de crédito o débito <strong>aún no está disponible</strong>. Por favor realiza el pago escaneando el código QR.
+                El pago con tarjeta de crédito o débito <strong>aún no está disponible</strong>. Completa el pago con el <strong>código QR</strong> siguiendo estos pasos.
             </div>
-            <p class="qr-section-title">Escanea y paga el valor</p>
-            <p class="qr-steps">Cuando hayas completado el pago en tu app, pulsa <strong>Confirmar pago</strong> abajo.</p>
+            <p class="qr-section-title">Cómo pagar con este código</p>
+            <ol class="steps-list">
+                <li><strong>Escanea el QR</strong> con la cámara desde tu app, <strong>o</strong> haz una <strong>captura de pantalla</strong>, guárdala en tu galería y usa <strong>“Escanear desde galería”</strong> en la app.</li>
+                <li>Al pagar, <strong>ingresa el valor exacto</strong> que ves abajo (<strong>{{ $montoFmt }}</strong>). Debe coincidir con el total de tu compra.</li>
+                <li>Cuando la app confirme el envío, pulsa <strong>Confirmar pago</strong> (abajo) para continuar.</li>
+            </ol>
 
             <div class="form-card panel-qr">
                 <div class="qr-box">
