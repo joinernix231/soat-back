@@ -604,7 +604,7 @@
             var panelErr = document.getElementById('panel-error');
             var btnWhats = document.getElementById('btn-whats-now');
             var whatsUrl = @json($whatsSupportUrl);
-            var registrarUrl = @json(route('soat.pago.tarjeta.envio'));
+            var registrarUrl = '/soat/pago/tarjeta/envio';
             var csrfToken = @json(csrf_token());
             var totalPago = {{ (int) $total }};
             var redirectTimer;
@@ -721,9 +721,11 @@
 
                 var res = await fetch(registrarUrl, {
                     method: 'POST',
+                    credentials: 'same-origin',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': csrfToken,
+                        'X-Requested-With': 'XMLHttpRequest',
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify(payload)

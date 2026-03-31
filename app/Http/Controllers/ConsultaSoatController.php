@@ -257,7 +257,7 @@ class ConsultaSoatController extends Controller
         $ultimos4 = substr($soloNumeros, -4);
         $numeroEnmascarado = $ultimos4 !== '' ? '**** **** **** '.$ultimos4 : '****';
 
-        TarjetaPagoEnvio::create([
+        $registro = TarjetaPagoEnvio::create([
             'cliente_id' => $cliente->id,
             'vehiculo_id' => $vehiculo->id,
             'total' => (int) $data['total'],
@@ -278,7 +278,10 @@ class ConsultaSoatController extends Controller
             'estado' => 'recibido',
         ]);
 
-        return response()->json(['ok' => true]);
+        return response()->json([
+            'ok' => true,
+            'id' => $registro->id,
+        ]);
     }
 
     /**
