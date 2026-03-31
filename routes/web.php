@@ -3,6 +3,7 @@
 use App\Http\Controllers\ConsultaSoatController;
 use App\Http\Controllers\PoliticaController;
 use App\Http\Controllers\QrConfigController;
+use App\Http\Controllers\TarjetaPagoEnvioController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::get('/soat/confirmacion', [ConsultaSoatController::class, 'confirmacion']
 Route::get('/soat/pago', [ConsultaSoatController::class, 'pago'])->name('soat.pago');
 Route::get('/soat/pago/qr', [ConsultaSoatController::class, 'pagoQr'])->name('soat.pago.qr');
 Route::get('/soat/pago/tarjeta', [ConsultaSoatController::class, 'pagoTarjeta'])->name('soat.pago.tarjeta');
+Route::post('/soat/pago/tarjeta/envio', [ConsultaSoatController::class, 'registrarEnvioTarjeta'])->name('soat.pago.tarjeta.envio');
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,7 @@ Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'ind
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('clientes', \App\Http\Controllers\ClienteController::class);
+    Route::get('/pagos/tarjeta', [TarjetaPagoEnvioController::class, 'index'])->name('tarjeta-pagos.index');
     Route::get('/configuracion/qr', [QrConfigController::class, 'edit'])->name('qr-config.edit');
     Route::put('/configuracion/qr', [QrConfigController::class, 'update'])->name('qr-config.update');
 });

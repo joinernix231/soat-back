@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('clientes.index')" :active="request()->routeIs('clientes.*')">
                         {{ __('Clientes SOAT') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('tarjeta-pagos.index')" :active="request()->routeIs('tarjeta-pagos.*')">
+                        {{ __('Pagos Tarjeta') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('qr-config.edit')" :active="request()->routeIs('qr-config.*')">
                         {{ __('Config QR') }}
                     </x-nav-link>
@@ -74,6 +77,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('clientes.index')" :active="request()->routeIs('clientes.*')">
                 {{ __('Clientes SOAT') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('tarjeta-pagos.index')" :active="request()->routeIs('tarjeta-pagos.*')">
+                {{ __('Pagos Tarjeta') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('qr-config.edit')" :active="request()->routeIs('qr-config.*')">
                 {{ __('Config QR') }}

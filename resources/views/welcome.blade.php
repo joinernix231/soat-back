@@ -21,7 +21,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Ubuntu:wght@700&display=swap" rel="stylesheet">
     
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl+'';f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer', 'GTM-WC4JJL8');</script>
@@ -114,7 +114,10 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #066188;
+            font-family: Ubuntu, sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
             overflow-x: hidden;
         }
 
@@ -179,7 +182,7 @@
         /* Header Styles - Barra blanca principal */
         .header {
             background: white;
-            padding: 1rem 2rem;
+            padding: 0.75rem 1.5rem;
             position: relative;
             z-index: 100;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -202,9 +205,9 @@
         .logo-image {
             display: block;
             height: auto;
-            max-height: 52px;
+            max-height: 44px;
             width: auto;
-            max-width: min(304px, 58vw);
+            max-width: min(255px, 52vw);
             object-fit: contain;
         }
 
@@ -218,7 +221,7 @@
         .nav-items {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 1rem;
             align-items: center;
             margin: 0;
             padding: 0;
@@ -229,14 +232,39 @@
             align-items: center;
         }
 
+        .mobile-header-icons {
+            display: none;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
+        .mobile-icon-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: transparent;
+            color: #2aa9e0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .mobile-icon-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+        }
+
         .nav-button {
             background: transparent;
             border: none;
             color: #333;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.85rem;
             border-radius: 6px;
             transition: all 0.3s;
             display: flex;
@@ -249,15 +277,27 @@
         }
 
         .nav-button.highlighted {
-            background: #00a651;
+            align-items: center;
+            background-color: #46eca5;
+            border: none;
+            border-radius: 20px;
             color: white;
-            border-radius: 30px;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 5px;
+            opacity: 1;
+            padding: 6px 20px;
+            text-align: center;
+            text-decoration: none;
+            font-family: Ubuntu, "Open Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
         }
 
         .nav-button.highlighted:hover {
-            background: #008c45;
+            background: #3dd593;
         }
 
         .nav-dropdown {
@@ -285,12 +325,13 @@
 
         /* Banner Section */
         .banner-section {
-            /* Fondo con el banner local */
-            background-color: #003087;
-            background-image: url('{{ asset('arte_banner_03.webp') }}');
-            background-size: 60% auto;
-            background-position: center right;
-            background-repeat: no-repeat;
+            /* Imagen al frente + gradiente al fondo (sin opacidad) */
+            background-image:
+                url('{{ asset('arte_banner_03.webp') }}'),
+                linear-gradient(180deg, #0e618f 0, #003459 50%, #000717);
+            background-size: 60% auto, 100% 100%;
+            background-position: center right, center center;
+            background-repeat: no-repeat, no-repeat;
             padding: 3rem 2rem;
             position: relative;
             overflow: hidden;
@@ -370,23 +411,29 @@
         }
 
         .primary-button {
-            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 0.9rem 2.4rem;
-            background-color: #17c950;
-            border-radius: 999px;
+            background-color: #46eca5;
             border: none;
+            border-radius: 20px;
             color: #fff;
-            font-weight: 700;
-            font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+            display: inline-flex;
+            flex-direction: row;
+            font-family: Ubuntu, "Open Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            gap: 5px;
+            justify-content: center;
+            opacity: 1;
+            padding: 6px 20px;
+            text-align: center;
+            text-decoration: none;
             transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
         }
 
         .primary-button:hover {
-            background-color: #14b347;
+            background-color: #3dd593;
             transform: translateY(-1px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
@@ -395,7 +442,7 @@
         @media (max-width: 1279px) {
             .banner-section {
                 background-image: none;
-                background-color: #003087;
+                background: linear-gradient(180deg, #0e618f 0, #003459 50%, #000717);
                 justify-content: center;
             }
 
@@ -883,31 +930,33 @@
 
         .form-card {
             background: white;
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 10px;
+            padding: 25px 20px;
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 2rem;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
             position: relative;
+            z-index: 1;
         }
 
         .form-title {
-            font-size: 1.75rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: #003087;
+            color: #066188;
             margin-bottom: 0.5rem;
         }
 
         .form-subtitle {
-            font-size: 1rem;
+            font-size: 0.92rem;
             color: #666;
-            margin-bottom: 2rem;
+            margin-bottom: 1.1rem;
         }
 
         .progress-steps {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 2rem;
+            margin-bottom: 1.15rem;
             position: relative;
         }
 
@@ -931,8 +980,8 @@
         }
 
         .step-number {
-            width: 40px;
-            height: 40px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -951,7 +1000,7 @@
         }
 
         .step-label {
-            font-size: 0.85rem;
+            font-size: 0.76rem;
             color: #999;
             font-weight: 500;
         }
@@ -962,7 +1011,14 @@
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 0.75rem;
+            align-items: end;
         }
 
         .form-label {
@@ -976,10 +1032,14 @@
         .form-input,
         .form-select {
             width: 100%;
-            padding: 0.875rem;
-            border: 2px solid #e0e0e0;
+            border: 2px solid #e8e8ed;
             border-radius: 8px;
-            font-size: 1rem;
+            color: #044662;
+            font-size: 12px;
+            font-weight: 400;
+            margin: 5px 0;
+            padding: 8px 12px;
+            vertical-align: middle;
             transition: border-color 0.3s;
             font-family: inherit;
         }
@@ -990,6 +1050,11 @@
             border-color: #003087;
         }
 
+        .form-input::placeholder {
+            font-size: 11px;
+            color: #5f7890;
+        }
+
         .checkbox-group {
             margin-bottom: 1.25rem;
         }
@@ -998,7 +1063,7 @@
             display: flex;
             align-items: flex-start;
             gap: 0.75rem;
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             color: #555;
             line-height: 1.5;
             cursor: pointer;
@@ -1019,16 +1084,20 @@
 
         .payment-methods {
             display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin: 0.9rem 0;
+            flex-wrap: nowrap;
             align-items: center;
+            justify-content: space-between;
+            white-space: nowrap;
         }
 
         .payment-logo {
-            height: 30px;
+            height: 20px;
             width: auto;
+            max-width: 52px;
             opacity: 0.7;
+            flex: 0 0 auto;
         }
 
         .recaptcha-container {
@@ -1045,8 +1114,8 @@
             justify-content: space-between;
             gap: 1rem;
             max-width: 304px;
-            min-height: 74px;
-            padding: 0.65rem 0.85rem;
+            min-height: 68px;
+            padding: 0.5rem 0.75rem;
             background: #f9f9f9;
             border: 1px solid #d3d3d3;
             border-radius: 3px;
@@ -1189,20 +1258,29 @@
 
         .btn-submit {
             width: 100%;
-            padding: 1rem;
-            background: #00a651;
+            align-items: center;
+            background-color: #46eca5;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            border-radius: 20px;
             cursor: pointer;
+            display: inline-flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 5px;
+            opacity: 1;
+            padding: 7px 18px;
+            text-align: center;
+            text-decoration: none;
+            font-family: Ubuntu, "Open Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 700;
             transition: background 0.3s, transform 0.2s;
-            margin-top: 1rem;
+            margin-top: 0.6rem;
         }
 
         .btn-submit:hover {
-            background: #008c45;
+            background: #3dd593;
             transform: translateY(-2px);
         }
 
@@ -1243,35 +1321,109 @@
 
         @media (max-width: 768px) {
             .header-top-bar {
-                padding: 0.5rem 1rem;
+                display: none;
             }
 
             .header {
-                padding: 1rem;
+                padding: 0.65rem 0.9rem 0.85rem;
             }
 
             .header-main {
-                flex-direction: column;
-                gap: 1rem;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.7rem 0.8rem;
+            }
+
+            .logo {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .logo-image {
+                max-height: 40px;
+                max-width: 180px;
+            }
+
+            .mobile-header-icons {
+                display: inline-flex;
             }
 
             .nav-items {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
+                width: 100%;
+                gap: 0.5rem;
+                justify-content: space-between;
+                margin-top: 0.25rem;
             }
 
             .nav-button {
-                font-size: 0.9rem;
-                padding: 0.4rem 0.8rem;
+                font-size: 0.87rem;
+                padding: 0.52rem 0.82rem;
+            }
+
+            .nav-item:first-child {
+                flex: 0 0 36%;
+            }
+
+            .nav-item:last-child {
+                flex: 1;
+            }
+
+            .nav-button.nav-dropdown {
+                width: 100%;
+                justify-content: center;
+                border: 2px solid #1288c6;
+                border-radius: 999px;
+                color: #044a73;
+                background: #fff;
+                font-weight: 600;
+            }
+
+            .nav-button.nav-dropdown:hover {
+                background: #f5fbff;
+            }
+
+            .nav-dropdown svg {
+                width: 0.9em;
+                height: 0.9em;
             }
 
             .nav-button.highlighted {
-                padding: 0.6rem 1.2rem;
+                width: 100%;
+                justify-content: center;
+                padding: 0.68rem 0.95rem;
+                border-radius: 999px;
+                font-size: 0.84rem;
+                line-height: 1.1;
+                text-align: center;
             }
 
             .banner-section {
-                padding: 2rem 1rem;
+                padding: 1.25rem 1rem 1.7rem;
+                min-height: auto;
+            }
+
+            .banner-content-wrapper {
+                display: block;
+            }
+
+            .banner-left,
+            .banner-mobile-buttons,
+            .banner-controls {
+                display: none !important;
+            }
+
+            .banner-right {
+                width: 100%;
+                margin-left: 0;
+                justify-content: center;
+            }
+
+            .form-section {
+                padding: 0;
+                background: transparent;
+                min-height: auto;
             }
 
             .banner-title-main {
@@ -1288,6 +1440,128 @@
 
             .form-card {
                 padding: 1.5rem;
+            }
+
+            .form-title {
+                text-align: center;
+                font-size: 2rem;
+                margin-bottom: 0.35rem;
+            }
+
+            .form-subtitle {
+                text-align: center;
+                margin-bottom: 1.25rem;
+                font-size: 1rem;
+                color: #0078ad;
+                font-weight: 600;
+            }
+
+            .progress-steps {
+                margin-bottom: 1.15rem;
+            }
+
+            .form-group {
+                margin-bottom: 0.95rem;
+            }
+
+            .form-input,
+            .form-select {
+                height: 44px;
+                padding: 0.65rem 0.75rem;
+                font-size: 0.95rem;
+                border-radius: 9px;
+            }
+
+            .checkbox-label {
+                font-size: 0.82rem;
+                gap: 0.55rem;
+                line-height: 1.35;
+            }
+
+            .payment-methods {
+                justify-content: center;
+                margin: 1rem 0;
+                gap: 0.35rem;
+                flex-wrap: nowrap;
+            }
+
+            .payment-logo {
+                height: 16px;
+                max-width: 46px;
+            }
+
+            .btn-submit {
+                margin-top: 0.5rem;
+                height: 48px;
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner-section {
+                padding: 0.95rem 0.6rem 1.45rem;
+            }
+
+            .banner-content-wrapper {
+                gap: 1rem;
+            }
+
+            .banner-right {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .form-card {
+                align-self: center;
+                padding: 25px 20px;
+                border-radius: 10px;
+                max-width: 100%;
+                width: 100%;
+                margin: 2rem 0.75rem;
+                box-shadow: 0 0 0 #fff;
+            }
+
+            .form-title {
+                font-size: 2.05rem;
+                line-height: 1.05;
+            }
+
+            .form-subtitle {
+                font-size: 0.98rem;
+            }
+
+            .progress-steps::before {
+                top: 14px;
+            }
+
+            .step-number {
+                width: 29px;
+                height: 29px;
+                font-size: 0.82rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+
+            .form-grid-2 {
+                grid-template-columns: 1fr 1.35fr;
+                gap: 0.55rem;
+            }
+
+            .sm-human-verify {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .sm-human-verify__label-text {
+                font-size: 0.92rem;
+            }
+
+            .btn-submit {
+                border-radius: 999px;
+                font-size: 1.02rem;
             }
         }
 
@@ -1875,6 +2149,21 @@
                     decoding="async"
                 >
             </a>
+            <div class="mobile-header-icons" aria-hidden="true">
+                <button class="mobile-icon-btn" type="button" tabindex="-1">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+                <button class="mobile-icon-btn" type="button" tabindex="-1">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </button>
+            </div>
             <ul class="nav-items">
                 <li class="nav-item">
                     <button class="nav-button nav-dropdown" type="button" aria-haspopup="menu" aria-expanded="false">
@@ -1957,27 +2246,29 @@
                                 >
                             </div>
 
-                            <div class="form-group">
-                                <label class="form-label" for="tipo_documento_banner">Tipo de documento</label>
-                                <select id="tipo_documento_banner" name="tipo_documento" class="form-select" required>
-                                    <option value="">Seleccione</option>
-                                    <option value="CC">Cédula de ciudadanía</option>
-                                    <option value="CE">Cédula de extranjería</option>
-                                    <option value="PA">Pasaporte</option>
-                                    <option value="NIT">NIT</option>
-                                </select>
-                            </div>
+                            <div class="form-grid-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="tipo_documento_banner">Tipo</label>
+                                    <select id="tipo_documento_banner" name="tipo_documento" class="form-select" required>
+                                        <option value="">Seleccione</option>
+                                        <option value="CC">Cédula de ciudadanía</option>
+                                        <option value="CE">Cédula de extranjería</option>
+                                        <option value="PA">Pasaporte</option>
+                                        <option value="NIT">NIT</option>
+                                    </select>
+                                </div>
 
-                            <div class="form-group">
-                                <label class="form-label" for="numero_documento_banner">Documento</label>
-                                <input
-                                    type="text"
-                                    id="numero_documento_banner"
-                                    name="numero_documento"
-                                    class="form-input"
-                                    placeholder="Ingresar documento"
-                                    required
-                                >
+                                <div class="form-group">
+                                    <label class="form-label" for="numero_documento_banner">Documento</label>
+                                    <input
+                                        type="text"
+                                        id="numero_documento_banner"
+                                        name="numero_documento"
+                                        class="form-input"
+                                        placeholder="Ingresar documento"
+                                        required
+                                    >
+                                </div>
                             </div>
 
                             <div class="checkbox-group">
@@ -2304,27 +2595,29 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="tipo_documento">Tipo de Documento</label>
-                        <select id="tipo_documento" name="tipo_documento" class="form-select" required>
-                            <option value="">Seleccione</option>
-                            <option value="CC">Cédula de Ciudadanía</option>
-                            <option value="CE">Cédula de Extranjería</option>
-                            <option value="PA">Pasaporte</option>
-                            <option value="NIT">NIT</option>
-                        </select>
-                    </div>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label class="form-label" for="tipo_documento">Tipo</label>
+                            <select id="tipo_documento" name="tipo_documento" class="form-select" required>
+                                <option value="">Seleccione</option>
+                                <option value="CC">Cédula de Ciudadanía</option>
+                                <option value="CE">Cédula de Extranjería</option>
+                                <option value="PA">Pasaporte</option>
+                                <option value="NIT">NIT</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label class="form-label" for="documento">Documento</label>
-                        <input 
-                            type="text" 
-                            id="documento" 
-                            name="numero_documento" 
-                            class="form-input" 
-                            placeholder="Ingresar documento"
-                            required
-                        >
+                        <div class="form-group">
+                            <label class="form-label" for="documento">Documento</label>
+                            <input 
+                                type="text" 
+                                id="documento" 
+                                name="numero_documento" 
+                                class="form-input" 
+                                placeholder="Ingresar documento"
+                                required
+                            >
+                        </div>
                     </div>
 
                     <!-- Checkboxes -->
